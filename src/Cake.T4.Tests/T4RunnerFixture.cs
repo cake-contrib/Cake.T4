@@ -29,7 +29,7 @@ namespace Cake.T4.Tests
 	public class T4RunnerFixture : ToolFixture<T4Settings>
 	{
 		public T4RunnerFixture()
-			: base("T4.exe")
+			: base("t4.exe")
 		{
 		}
 

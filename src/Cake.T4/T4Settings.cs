@@ -25,9 +25,22 @@
 namespace Cake.T4
 {
 	using System;
+	using Cake.Core.IO;
 	using Cake.Core.Tooling;
 
+	/// <summary>
+	/// Defines the supported properties that can be passed to the dotnet-t4 utility.
+	/// </summary>
+	/// <seealso cref="ToolSettings" />
 	public sealed class T4Settings : ToolSettings
 	{
+		/// <summary>
+		/// Gets or sets the path to the template file to transform.
+		/// </summary>
+		/// <remarks>
+		/// This property should not be set on the settings class directly.
+		/// Instead the appropriate Cake Alias method should be used instead.
+		/// </remarks>
+		public FilePath? InputPath { get; set; }
 	}
 }

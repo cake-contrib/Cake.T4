@@ -42,7 +42,7 @@ namespace Cake.T4.Tests
 				fixture.Run();
 			}
 
-			Assert.That((Action)runFixture, Throws.ArgumentNullException.With.Message.Contains("message"));
+			Assert.That((Action)runFixture, Throws.ArgumentNullException.With.Message.Contains("settings"));
 		}
 
 		[Test]
@@ -52,17 +52,48 @@ namespace Cake.T4.Tests
 			{
 				var fixture = new T4RunnerFixture();
 				fixture.GivenDefaultToolDoNotExist();
+				fixture.Settings = new T4Settings { InputPath = "some-path" };
 				fixture.Run();
 			}
 
-			const string expectedMessage = "T4: Could not locate executable";
+			const string expectedMessage = "T4: Could not locate executable.";
 			Assert.That((Action)result, Throws.TypeOf<CakeException>().With.Message.EqualTo(expectedMessage));
 		}
 
 		[Test]
-		public void Need_More_Unit_Test_Implementations()
+		public void Should_Set_Input_Path_When_Supplied()
 		{
-			Assert.That(false, Is.True, "More unit tests need to be implemented for the runner class");
+			var settings = new T4Settings
+			{
+				InputPath = "some-kind/of/file.tt"
+			};
+			var fixture = new T4RunnerFixture();
+			fixture.GivenSettingsToolPathExist();
+			fixture.Settings = settings;
+
+			var result = fixture.Run();
+
+			Assert.That(result.Args, Is.EqualTo("\"some-kind/of/file.tt\""));
+		}
+
+		[Test]
+		public void Should_Throw_Exception_When_TemplatePath_IsEmpty()
+		{
+			void result()
+			{
+				var settings = new T4Settings
+				{
+					InputPath = null,
+				};
+				var fixture = new T4RunnerFixture();
+				fixture.GivenSettingsToolPathExist();
+				fixture.Settings = settings;
+
+				fixture.Run();
+			}
+
+			const string expectedMessage = "T4: No input path have been specified!";
+			Assert.That((Action)result, Throws.TypeOf<ArgumentNullException>().With.Message.StartsWith(expectedMessage));
 		}
 	}
 }

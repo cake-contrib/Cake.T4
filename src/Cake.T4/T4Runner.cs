@@ -30,8 +30,21 @@ namespace Cake.T4
 	using Cake.Core.IO;
 	using Cake.Core.Tooling;
 
+	/// <summary>
+	/// The runner implementation responsible for
+	/// passing the correct arguments to the T4 executable.
+	/// </summary>
+	/// <seealso cref="Tool{TSettings}" />
 	public sealed class T4Runner : Tool<T4Settings>
 	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="T4Runner" /> class.
+		/// </summary>
+		/// <param name="fileSystem">The file system.</param>
+		/// <param name="environment">The environment.</param>
+		/// <param name="processRunner">The process runner.</param>
+		/// <param name="tools">The tool locator.</param>
+		/// <seealso cref="Tool{TSettings}" />
 		public T4Runner(
 			IFileSystem fileSystem,
 			ICakeEnvironment environment,
@@ -41,6 +54,10 @@ namespace Cake.T4
 		{
 		}
 
+		/// <summary>
+		/// Runs the tool using the specified <paramref name="settings" />.
+		/// </summary>
+		/// <param name="settings">The settings to use when running the tool.</param>
 		public void Run(T4Settings settings)
 		{
 			if (settings == null)
@@ -48,15 +65,25 @@ namespace Cake.T4
 				throw new ArgumentNullException(nameof(settings));
 			}
 
+			if (settings.InputPath is null)
+			{
+				throw new ArgumentNullException(nameof(settings.InputPath), "T4: No input path have been specified!");
+			}
+
 			this.Run(settings, GetArguments(settings));
 		}
 
+		/// <inheritdoc/>
 		protected override IEnumerable<string> GetToolExecutableNames()
-		{
-			yield return "T4.exe";
-			yield return "T4";
-		}
+			=> new[]
+			{
+				"t4.exe",
+				"t4",
+				"dotnet-t4.exe",
+				"dotnet-t4",
+			};
 
+		/// <inheritdoc/>
 		protected override string GetToolName()
 		{
 			return "T4";
@@ -66,7 +93,7 @@ namespace Cake.T4
 		{
 			var builder = new ProcessArgumentBuilder();
 
-			// TODO: Add the necessary arguments based on the settings class
+			builder.AppendQuoted("{0}", settings.InputPath);
 
 			return builder;
 		}

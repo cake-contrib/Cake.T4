@@ -21,8 +21,9 @@
 			"type": "process",
 			"args": [
 				"test",
-				"${workspaceFolder}/src/Cake.T4.Tests/Cake.T4.Tests.csproj",
+				"${workspaceFolder}/src/Cake.T4.sln",
 				"/property:GenerateFullPaths=true",
+				"/property:CollectCoverage=true",
 				"/consoleloggerparameters:NoSummary",
 				"--no-build"
 			],
@@ -42,6 +43,7 @@
 				"${workspaceFolder}/src/Cake.T4.sln",
 				"test",
 				"/property:GenerateFullPaths=true",
+				"/property:CollectCoverage=true",
 				"/consoleloggerparameters:NoSummary"
 			],
 			"problemMatcher": "$msCompile"

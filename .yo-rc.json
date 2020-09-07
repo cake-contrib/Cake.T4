@@ -1,0 +1,19 @@
+{
+  "generator-cake-addin": {
+    "promptValues": {
+      "projectName": "T4",
+      "repositoryOwner": "cake-contrib",
+      "projectMaintainer": "AdmiringWorm",
+      "author": "Kim J. Nordmo",
+      "description": "Cake addin for transforming text templates (t4) using monos [dotnet-t4](https://nuget.org/packages/dotnet-t4) utility.",
+      "licenseType": "MIT",
+      "sourceDir": "./src",
+      "scriptName": "recipe.cake",
+      "enableAllContributors": true,
+      "enableWyam": true,
+      "enableTravis": false,
+      "useTabs": true,
+      "indentYamlSize": 2
+    }
+  }
+}

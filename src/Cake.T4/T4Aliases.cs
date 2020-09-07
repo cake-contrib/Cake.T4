@@ -24,6 +24,7 @@
 
 namespace Cake.T4
 {
+	using System;
 	using Cake.Core;
 	using Cake.Core.Annotations;
 	using Cake.Core.IO;
@@ -60,15 +61,51 @@ namespace Cake.T4
 		[CakeMethodAlias]
 		public static void T4(this ICakeContext context, FilePath inputPath)
 		{
+			var settings = new T4Settings
+			{
+				InputPath = inputPath ?? throw new ArgumentNullException(nameof(inputPath)),
+			};
+			T4(context, settings);
+		}
+
+		/// <summary>
+		/// This command calls the dotnet-t4 executable with the given
+		/// <paramref name="inputPath" /> to transform a single text template file,
+		/// and outputs the file to the specified <paramref name="outputPath" />.
+		/// </summary>
+		/// <param name="context">The current cake context to use.</param>
+		/// <param name="inputPath">The path to the text template to transform.</param>
+		/// <param name="outputPath">The path where the output of the transformation will be outputted.</param>
+		/// <example>
+		/// <code>
+		/// <![CDATA[
+		/// Task("Transform-Template")
+		/// 	.Does(() =>
+		/// {
+		/// 	Tp("path/to/text-template.tt", "path/to/output.g.cs");
+		/// })
+		/// ]]>
+		/// </code>
+		/// </example>
+		[CakeMethodAlias]
+		public static void T4(this ICakeContext context, FilePath inputPath, FilePath outputPath)
+		{
+			var settings = new T4Settings
+			{
+				InputPath = inputPath ?? throw new ArgumentNullException(nameof(inputPath)),
+				OutputPath = outputPath ?? throw new ArgumentNullException(nameof(outputPath)),
+			};
+			T4(context, settings);
+		}
+
+		private static void T4(ICakeContext context, T4Settings settings)
+		{
 			var runner = new T4Runner(
 				context.FileSystem,
 				context.Environment,
 				context.ProcessRunner,
 				context.Tools);
-			var settings = new T4Settings
-			{
-				InputPath = inputPath,
-			};
+
 			runner.Run(settings);
 		}
 	}

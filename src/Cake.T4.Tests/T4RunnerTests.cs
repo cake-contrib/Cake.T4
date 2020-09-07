@@ -95,5 +95,22 @@ namespace Cake.T4.Tests
 			const string expectedMessage = "T4: No input path have been specified!";
 			Assert.That((Action)result, Throws.TypeOf<ArgumentNullException>().With.Message.StartsWith(expectedMessage));
 		}
+
+		[Test]
+		public void Should_Set_Output_Path_When_Supplied()
+		{
+			var settings = new T4Settings
+			{
+				InputPath = "input.tt",
+				OutputPath = "my/awesome/output.tt",
+			};
+			var fixture = new T4RunnerFixture();
+			fixture.GivenSettingsToolPathExist();
+			fixture.Settings = settings;
+
+			var result = fixture.Run();
+
+			Assert.That(result.Args, Is.EqualTo("--out=\"my/awesome/output.tt\" \"input.tt\""));
+		}
 	}
 }

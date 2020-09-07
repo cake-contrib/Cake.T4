@@ -42,5 +42,14 @@ namespace Cake.T4
 		/// Instead the appropriate Cake Alias method should be used instead.
 		/// </remarks>
 		public FilePath? InputPath { get; set; }
+
+		/// <summary>
+		/// Gets or sets the name or path of the output &lt;file&gt;.
+		/// </summary>
+		/// <remarks>
+		/// Defaults to the input filename with its extension changed to
+		/// `.txt`.
+		/// </remarks>
+		public FilePath? OutputPath { get; set; }
 	}
 }

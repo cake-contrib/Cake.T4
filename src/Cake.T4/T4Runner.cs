@@ -93,6 +93,11 @@ namespace Cake.T4
 		{
 			var builder = new ProcessArgumentBuilder();
 
+			if (settings.OutputPath != null)
+			{
+				builder.AppendSwitchQuoted("--out", "=", settings.OutputPath.FullPath);
+			}
+
 			builder.AppendQuoted("{0}", settings.InputPath);
 
 			return builder;

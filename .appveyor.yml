@@ -18,7 +18,7 @@ test: off
 build: off
 
 build_script:
-  - sh: ./build.sh --target CI
+  - sh: ./build.sh --target=CI
 
 cache:
   - "tools -> recipe.cake,.config/dotnet-tools.json"

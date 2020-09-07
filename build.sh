@@ -3,4 +3,4 @@ dotnet tool restore
 
 dotnet cake recipe.cake --bootstrap
 
-dotnet cake recipe.cake $@
+dotnet cake recipe.cake "$@"

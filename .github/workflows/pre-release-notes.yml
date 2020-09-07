@@ -37,5 +37,5 @@ jobs:
         with:
           branch: "release/${{ steps.gitversion.outputs.majorMinorPatch }}"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Crete release notes
+      - name: Create release notes # Cake action do not support passing additional arguments
         run: ./build.sh --target=releasenotes --create-pre-release

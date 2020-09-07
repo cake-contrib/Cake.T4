@@ -37,5 +37,11 @@ jobs:
         with:
           branch: "release/${{ steps.gitversion.outputs.majorMinorPatch }}"
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Crete release notes
-        run: ./build.sh --target=releasenotes
+      - name: Drafting Release Notes
+        uses: cake-build/cake-action@v1
+        with:
+          script-path: recipe.cake
+          target: releasenotes
+          verbosity: Diagnostic
+          cake-version: 0.38.4
+          cake-bootstrap: true

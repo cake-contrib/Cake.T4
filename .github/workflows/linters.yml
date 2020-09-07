@@ -16,7 +16,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter@v3.9.4
         env:
-          VALIDATE_ALL_CODEBASE: true # should be set to false once
+          VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: develop
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           LINTER_RULES_PATH: "."
